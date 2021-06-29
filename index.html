@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous" />
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="style.css" />
+
+    <title>Whatsapp Form Order</title>
+    <!-- Start of Async Drift Code -->
+    <script>
+      "use strict";
+
+      !(function () {
+        var t = (window.driftt = window.drift = window.driftt || []);
+        if (!t.init) {
+          if (t.invoked) return void (window.console && console.error && console.error("Drift snippet included twice."));
+          (t.invoked = !0),
+            (t.methods = ["identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on"]),
+            (t.factory = function (e) {
+              return function () {
+                var n = Array.prototype.slice.call(arguments);
+                return n.unshift(e), t.push(n), t;
+              };
+            }),
+            t.methods.forEach(function (e) {
+              t[e] = t.factory(e);
+            }),
+            (t.load = function (t) {
+              var e = 3e5,
+                n = Math.ceil(new Date() / e) * e,
+                o = document.createElement("script");
+              (o.type = "text/javascript"), (o.async = !0), (o.crossorigin = "anonymous"), (o.src = "https://js.driftt.com/include/" + n + "/" + t + ".js");
+              var i = document.getElementsByTagName("script")[0];
+              i.parentNode.insertBefore(o, i);
+            });
+        }
+      })();
+      drift.SNIPPET_VERSION = "0.3.1";
+      drift.load("9fb3c3fye4m3");
+    </script>
+    <!-- End of Async Drift Code -->
+  </head>
+
+  <div class="alert alert-success alert-dismissible fade show d-none my-alert" role="alert" id="alert">
+    Pesanan sudah diterima <br />
+    <strong>Lanjutkan Gengs!!</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <body>
+    <div id="logo" class="logo">
+      <div id="logoroyal"><img src="img/logo-royal2.png" alt="logo_royal" class="img-fluid" /></div>
+    </div>
+
+    <form name="Form-Order-Marketing">
+      <h1 id="title"><strong>Form Order via Whatsapp</strong></h1>
+
+      <label for="name" id="name-label">
+        <strong>Nama Pemesan</strong>
+        <input type="text" id="nama" name="nama" placeholder="Tulis nama lengkap anda....." />
+      </label>
+
+      <label for="telepon" id="telepon-label">
+        <strong>Nomor Telepon</strong>
+        <input type="number" id="telepon" name="telepon" placeholder="Nomor Telepon Whatsapp" />
+      </label>
+
+      <label for="barang" id="barang-label">
+        <strong>Nama Barang</strong>
+        <input type="text" id="barang" name="nama-barang" placeholder="Apa yang anda cari?" />
+      </label>
+
+      <label for="Qty" id="qty-label">
+        <strong>Qty</strong>
+        <input type="number" id="qty" name="qty" />
+      </label>
+
+      <label for="satuan" id="satuan-label">
+        <strong>Satuan</strong>
+        <select id="dropdown" name="satuan">
+          <option value=".......">.......</option>
+          <option value="Botol">Botol</option>
+          <option value="Box">Box</option>
+          <option value="Buah">Buah</option>
+          <option value="Bungkus">Bungkus</option>
+          <option value="Dus">Dus</option>
+          <option value="Jirigen">Jirigen</option>
+          <option value="Karton">Karton</option>
+          <option value="Liter">Liter</option>
+          <option value="Lusin">Lusin</option>
+          <option value="Meter">Meter</option>
+          <option value="Pak">Pak</option>
+          <option value="Pcs">Pcs</option>
+          <option value="Rim">Rim</option>
+          <option value="Roll">Roll</option>
+          <option value="Set">Set</option>
+          <option value="Slop">Slop</option>
+          <option value="Strip">Strip</option>
+          <option value="Unit">Unit</option>
+        </select>
+      </label>
+
+      <label for="rupiah" id="pagu-label">
+        <strong>Harga</strong>
+        <input type="text" id="rupiah" name="pagu" placeholder="Kriteria Harga Anda" />
+      </label>
+
+      <label for="comments" id="comments-label">
+        <strong>Keterangan</strong>
+        <textarea id="comment" cols="30" rows="10" name="keterangan" placeholder="Isi keterangan warna, ukuran, tipe yang sesuai dengan kebutuhan"></textarea>
+      </label>
+
+      <button id="submit" type="submit" class="btn-primary btn-kirim" name="Form-Kunjungan-Marketing">SUBMIT</button>
+      <button class="btn btn-warning btn-loading d-none" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        Loading...
+      </button>
+    </form>
+
+    <script>
+      const scriptURL = "https://script.google.com/macros/s/AKfycbyWQSSRRH4Czs-aLB9Y1jAsUdiAmv4KtPOWHVxGZ8jewSQrDFnimNs8S62iAbih83xh4g/exec";
+      const form = document.forms["Form-Order-Marketing"];
+      const btnKirim = document.querySelector(".btn-kirim");
+      const btnLoading = document.querySelector(".btn-loading");
+      const myAlert = document.querySelector(".my-alert");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        //ketika tombol submit diklik
+        //tampilkan tombol loading, hilangkan tombol kirim
+        btnLoading.classList.toggle("d-none");
+        btnKirim.classList.toggle("d-none");
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => {
+            //tampilkan tombol kirim, hilangkan tombol loading
+            btnLoading.classList.toggle("d-none");
+            btnKirim.classList.toggle("d-none");
+            //tampilkan tombol kirim, hilangkan tombol loading
+            myAlert.classList.toggle("d-none");
+            //reset form
+            document.getElementById("barang").value = "";
+            document.getElementById("qty").value = "";
+            document.getElementById("dropdown").value = "";
+            document.getElementById("rupiah").value = "";
+            document.getElementById("comment").value = "";
+            var elmnt = document.getElementById("logo");
+            elmnt.scrollIntoView();
+            console.log("Success!", response);
+          })
+          .catch((error) => console.error("Error!", error.message));
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    <script>
+      var rupiah = document.getElementById("rupiah");
+      rupiah.addEventListener("keyup", function (e) {
+        // tambahkan 'Rp.' pada saat form di ketik
+        // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+        rupiah.value = formatRupiah(this.value, "Rp. ");
+      });
+
+      /* Fungsi formatRupiah */
+      function formatRupiah(angka, prefix) {
+        var number_string = angka.replace(/[^,\d]/g, "").toString(),
+          split = number_string.split(","),
+          sisa = split[0].length % 3,
+          rupiah = split[0].substr(0, sisa),
+          ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        // tambahkan titik jika yang di input sudah menjadi angka ribuan
+        if (ribuan) {
+          separator = sisa ? "." : "";
+          rupiah += separator + ribuan.join(".");
+        }
+
+        rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+        return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+      }
+    </script>
+  </body>
+</html>
